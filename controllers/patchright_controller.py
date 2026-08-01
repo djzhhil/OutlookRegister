@@ -15,8 +15,8 @@ class PatchrightController(BaseBrowserController):
             } if self.proxy else None
 
             b = p.chromium.launch(
-                headless=False,            
-                args=['--lang=zh-CN'],
+                headless=False,
+                args=['--lang=zh-CN', '--accept-lang=zh-CN,zh'],
                 proxy=proxy_settings
             )
 
@@ -84,7 +84,12 @@ class PatchrightController(BaseBrowserController):
 
     def get_thread_page(self):
         browser = self.get_thread_browser()
-        context = browser.new_context()
+        # 注册流程依赖中文文案（如「同意并继续」）；仅 --lang 不够，需 context locale
+        context = browser.new_context(
+            locale="zh-CN",
+            timezone_id="Asia/Shanghai",
+            extra_http_headers={"Accept-Language": "zh-CN,zh;q=0.9"},
+        )
         return context.new_page()
 
     def clean_up(self, page=None, type="all_browser"):

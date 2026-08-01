@@ -1,0 +1,18 @@
+# Local environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Runtime outputs / secrets
+Results/*.txt
+Results/*.log
+*.log
+reg_*.png
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
